@@ -1,4 +1,4 @@
-package mattchowning.com.weatherapp
+package com.mattchowning.weatherapp
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity

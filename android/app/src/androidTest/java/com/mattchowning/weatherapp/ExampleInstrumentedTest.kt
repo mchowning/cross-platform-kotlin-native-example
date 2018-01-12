@@ -1,4 +1,4 @@
-package mattchowning.com.weatherapp
+package com.mattchowning.weatherapp
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

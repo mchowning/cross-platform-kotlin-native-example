@@ -1,4 +1,4 @@
-package mattchowning.com.weatherapp
+package com.mattchowning.weatherapp
 
 class AndroidZipHandler {
 

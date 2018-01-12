@@ -1,4 +1,4 @@
-package mattchowning.com.weatherapp
+package com.mattchowning.weatherapp
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
