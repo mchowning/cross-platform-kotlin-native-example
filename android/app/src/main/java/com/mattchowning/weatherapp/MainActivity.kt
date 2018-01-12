@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_ENTER
+import android.view.KeyEvent.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,7 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         editText.setOnEditorActionListener { textView: TextView, actionId: Int, keyEvent: KeyEvent? ->
-            if (keyEvent?.keyCode == KEYCODE_ENTER) {
+            Log.e("EVENT_SENT", "actionId: $actionId, keyEvent: $keyEvent")
+            if (keyEvent?.keyCode == KEYCODE_ENTER && keyEvent?.action == ACTION_DOWN) {
                 sendToList()
                 hideKeyboard()
                 true
