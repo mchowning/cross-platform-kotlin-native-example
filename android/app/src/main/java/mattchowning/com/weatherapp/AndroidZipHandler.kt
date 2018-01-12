@@ -1,6 +1,6 @@
 package mattchowning.com.weatherapp
 
-class ZipHandler {
+class AndroidZipHandler {
 
     companion object {
         fun handleInput(input: String): String =

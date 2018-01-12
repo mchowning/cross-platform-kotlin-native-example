@@ -1,0 +1,6 @@
+framework module KotlinSharedModule {
+    umbrella header "KotlinSharedModule.h"
+
+    export *
+    module * { export * }
+}

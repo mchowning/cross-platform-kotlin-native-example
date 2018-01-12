@@ -26,7 +26,7 @@ class CustomAdapter: RecyclerView.Adapter<CustomAdapter.CustomViewHolder>() {
     class CustomViewHolder(private val v: TextView): RecyclerView.ViewHolder(v) {
         
         fun bindView(s: String) {
-            v.text = ZipHandler.handleInput(s)
+            v.text = AndroidZipHandler.handleInput(s)
         }
     }
 }

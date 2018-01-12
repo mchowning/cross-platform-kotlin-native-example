@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KotlinSharedModule
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
@@ -41,7 +42,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //MARK: Private Methods
     
     private func processInput() {
-        let value = ZipHandler.handleInput(input: textField.text!)
+        let value = KSMZipHandler().handleInput(input: textField.text!)
+        
+        
         textField.text = ""
         weatherTableViewController.addValue(value)
     }
