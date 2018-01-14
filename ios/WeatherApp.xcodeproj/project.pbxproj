@@ -15,8 +15,8 @@
 		79731ECD200792940055F65B /* WeatherAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79731ECC200792940055F65B /* WeatherAppTests.swift */; };
 		79731EDA2007A0340055F65B /* WeatherTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79731ED92007A0340055F65B /* WeatherTableViewController.swift */; };
 		79731EDC2007A13B0055F65B /* WeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79731EDB2007A13B0055F65B /* WeatherTableViewCell.swift */; };
-		79A38EB820090311000C3533 /* KotlinSharedModule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A38EB720090311000C3533 /* KotlinSharedModule.framework */; };
-		79A38EB920090311000C3533 /* KotlinSharedModule.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79A38EB720090311000C3533 /* KotlinSharedModule.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		79A38EC1200B7462000C3533 /* SharedKotlinLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A38EC0200B7462000C3533 /* SharedKotlinLibrary.framework */; };
+		79A38EC2200B7462000C3533 /* SharedKotlinLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 79A38EC0200B7462000C3533 /* SharedKotlinLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				79A38EB920090311000C3533 /* KotlinSharedModule.framework in Embed Frameworks */,
+				79A38EC2200B7462000C3533 /* SharedKotlinLibrary.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,7 +56,7 @@
 		79731ECE200792940055F65B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79731ED92007A0340055F65B /* WeatherTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewController.swift; sourceTree = "<group>"; };
 		79731EDB2007A13B0055F65B /* WeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewCell.swift; sourceTree = "<group>"; };
-		79A38EB720090311000C3533 /* KotlinSharedModule.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KotlinSharedModule.framework; path = "xcode-shared/KotlinSharedModule.framework"; sourceTree = "<group>"; };
+		79A38EC0200B7462000C3533 /* SharedKotlinLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SharedKotlinLibrary.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79A38EB820090311000C3533 /* KotlinSharedModule.framework in Frameworks */,
+				79A38EC1200B7462000C3533 /* SharedKotlinLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +81,7 @@
 		79731EAB200792930055F65B = {
 			isa = PBXGroup;
 			children = (
-				79A38EB720090311000C3533 /* KotlinSharedModule.framework */,
+				79A38EC0200B7462000C3533 /* SharedKotlinLibrary.framework */,
 				79731EB6200792930055F65B /* WeatherApp */,
 				79731ECB200792940055F65B /* WeatherAppTests */,
 				79731EB5200792930055F65B /* Products */,
@@ -241,7 +241,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "case \"$PLATFORM_NAME\" in\n  iphoneos)\n    TARGET=iphone\n    TASK=compileKonanKotlinSharedModuleIphone\n    ;;\n  iphonesimulator)\n    TARGET=iphone_sim\n    TASK=compileKonanKotlinSharedModuleIphone_sim\n    ;;\n  *)\n    echo \"Unknown platform: $PLATFORM_NAME\"\n    exit 1\n    ;;\nesac\n\n../shared/gradlew clean \"$TASK\" -p \"$SRCROOT/../shared\"\n\ncp -R \"$SRCROOT/../shared/sharedModule/build/konan/bin/$TARGET/KotlinSharedModule.framework\" \"$SRCROOT/xcode-shared\"";
+			shellScript = "FRAMEWORK_NAME=\"SharedKotlinLibrary\"\ncase \"$PLATFORM_NAME\" in\n  iphoneos)\n    TARGET=iphone\n    TASK=\"compileKonan${FRAMEWORK_NAME}Iphone\"\n    ;;\n  iphonesimulator)\n    TARGET=iphone_sim\n    TASK=\"compileKonan${FRAMEWORK_NAME}Iphone_sim\"\n    ;;\n  *)\n    echo \"Unknown platform: $PLATFORM_NAME\"\n    exit 1\n    ;;\nesac\n\n../gradlew :common-ios:clean :common-ios:\"$TASK\" -p \"$SRCROOT/../\"\n\nrm -rf \"$SRCROOT/$FRAMEWORK_NAME.framework\"\ncp -R \"$SRCROOT/../common-ios/build/konan/bin/$TARGET/$FRAMEWORK_NAME.framework\" \"$SRCROOT/$FRAMEWORK_NAME.framework\"";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -410,7 +411,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/xcode-shared",
 				);
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -429,7 +429,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/xcode-shared",
 				);
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

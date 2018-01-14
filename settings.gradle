@@ -1,0 +1,5 @@
+rootProject.name = 'kotlin-native-cross-platform'
+include 'common',
+        'common-jvm',
+        'common-ios',
+        'android'
